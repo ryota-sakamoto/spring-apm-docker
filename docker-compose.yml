@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  api:
+    image: openjdk:14.0.1-slim-buster
+    command: ./gradlew bootRun
+    environment:
+      GRADLE_USER_HOME: /.cache
+    volumes:
+    - .:/src
+    - .cache:/.cache
+    working_dir: /src
+    ports:
+    - 8080:8080
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+    - 9200:9200
+    - 9300:9300
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.7.0
+    ports:
+    - 5601:5601
+  apm: 
+    image: docker.elastic.co/apm/apm-server:7.7.0
+    environment:
+      output.elasticsearch.hosts: elasticsearch:9200
+    ports:
+    - 8200:8200
