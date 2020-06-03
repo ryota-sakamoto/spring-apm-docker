@@ -13,7 +13,11 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.0.RELEASE'
+
+	developmentOnly group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.3.0.RELEASE'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
